@@ -111,17 +111,18 @@ class GradescopeAssignment:
                     for row in data.get("students", [])}
 
         df = pd.DataFrame({"email":[], "due_date":[]})
-        print("1111111111")
         due_dates = data["overrides"]
-        print("22222222")
         assignment_due_date = data["assignment"]["hard_due_date"]
-        print("333333333333")
         for student_email in students.keys():
-            print("4444444")
             user_id = students.get(student_email)
-            print("55555555")
-            student_due_date = due_dates[user_id]["settings"]["hard_due_date"]["value"]
-            print("66666666")
+            student_due_date = due_dates[user_id]
+            print("aaaaaaaaaa")
+            a = student_due_date["settings"]
+            print("bbbbbbbb")
+            b = a["hard_due_date"]
+            print("cccccccccc")
+            c = b["value"]
+            print("dddddddddd")
             if (student_due_date != assignment_due_date):
                 df.loc[len(df.index)] = [student_email, student_due_date]
         print(df)
