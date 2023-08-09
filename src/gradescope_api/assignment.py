@@ -118,10 +118,14 @@ class GradescopeAssignment:
             return dt.astimezone(pytz.utc)
         for user_id in due_dates_changed.keys():
             student_email = students.get(user_id)
-            student_due_date = due_dates_changed[user_id]["settings"]["hard_due_date"]["value"]
-            if (student_due_date != assignment_due_date):
-                difference = transform_date(student_due_date) - transform_date(assignment_due_date)
-                df.loc[len(df.index)] = [student_email, difference.days]
+            try:
+                student_due_date = due_dates_changed[user_id]["settings"]["hard_due_date"]["value"]
+            except KeyError:
+                pass
+            else:
+                if (student_due_date != assignment_due_date):
+                    difference = transform_date(student_due_date) - transform_date(assignment_due_date)
+                    df.loc[len(df.index)] = [student_email, difference.days]
 
         return df
 
