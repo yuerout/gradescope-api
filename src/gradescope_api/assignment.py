@@ -109,7 +109,6 @@ class GradescopeAssignment:
         data = json.loads(props)
         students = {str(row["id"]): row["email"]
                     for row in data.get("students", [])}
-        print(students)
         df = pd.DataFrame({"email":[], "difference":[]})
         due_dates_changed = data["overrides"] # only students with extension or due date change are in this
         assignment_due_date = data["assignment"]["hard_due_date"]
