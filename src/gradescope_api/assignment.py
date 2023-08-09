@@ -107,7 +107,7 @@ class GradescopeAssignment:
         props = soup.find(
             "li", {"data-react-class": "AddExtension"})["data-react-props"]
         data = json.loads(props)
-        students = {row["id"]: row["email"]
+        students = {str(row["id"]): row["email"]
                     for row in data.get("students", [])}
         print(students)
         df = pd.DataFrame({"email":[], "due_date":[]})
