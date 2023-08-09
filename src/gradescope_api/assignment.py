@@ -111,7 +111,6 @@ class GradescopeAssignment:
                     for row in data.get("students", [])}
         df = pd.DataFrame({"email":[], "difference":[]})
         due_dates_changed = data["overrides"] # only students with extension or due date change are in this
-        print(due_dates_changed)
         assignment_due_date = data["assignment"]["hard_due_date"]
         def transform_date(datestr: str):
             dt = pytz.timezone("US/Pacific").localize(parse(datestr))
