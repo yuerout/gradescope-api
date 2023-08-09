@@ -101,15 +101,15 @@ class GradescopeAssignment:
             f"https://www.gradescope.com/courses/{course_id}/assignments/{assignment_id}/extensions", timeout=20
         )
         check_response(response, "could not load assignment")
-        print("??????????????????????????????????????????")
         # Once we fetch the page, parse out the data (students + due dates)
         soup = BeautifulSoup(response.content, "html.parser")
         props = soup.find(
             "li", {"data-react-class": "AddExtension"})["data-react-props"]
         data = json.loads(props)
+        print(data)
         students = {row["email"]: row["id"]
                     for row in data.get("students", [])}
-        print(students)
+        #print(students)
         #user_id = students.get(email)
         #if not user_id:
         #    raise GradescopeAPIError("student email not found")
