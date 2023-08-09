@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING, Optional
 import pytz
 from bs4 import BeautifulSoup
 from dateutil.parser import parse
+import pandas as pd
 
 from gradescope_api.errors import GradescopeAPIError, check_response
 
@@ -109,6 +110,18 @@ class GradescopeAssignment:
         print(data)
         students = {row["email"]: row["id"]
                     for row in data.get("students", [])}
+
+        df = pd.DataFrame({"email":[], "due_date":[]})
+        due_dates = data["overrides"]
+        assignment_due_date = data["assignment"]["hard_due_date"]
+        for student_email in students.keys():
+            user_id = students.get(student_email)
+            student_due_date = due_dates[user_id]["settings"]["hard_due_date"]["value"]
+            if (student_due_date != assignment_due_date):
+                df.loc[len(df.index)] = [student_email, student_due_date]
+        print(df)
+
+
         #print(students)
         #user_id = students.get(email)
         #if not user_id:
