@@ -107,25 +107,18 @@ class GradescopeAssignment:
         props = soup.find(
             "li", {"data-react-class": "AddExtension"})["data-react-props"]
         data = json.loads(props)
-        students = {row["email"]: row["id"]
+        students = {row["id"]: row["email"]
                     for row in data.get("students", [])}
 
         df = pd.DataFrame({"email":[], "due_date":[]})
-        due_dates = data["overrides"]
-        print(due_dates)
+        due_dates_changed = data["overrides"] # only students with extension or due date change are in this
         assignment_due_date = data["assignment"]["hard_due_date"]
-        for student_email in students.keys():
-            user_id = students.get(student_email)
-            student_due_date = due_dates[str(user_id)]
-            print("aaaaaaaaaa")
-            a = student_due_date["settings"]
-            print("bbbbbbbb")
-            b = a["hard_due_date"]
-            print("cccccccccc")
-            c = b["value"]
-            print("dddddddddd")
+        for user_id in due_dates_changed.keys():
+            student_email = students.get(user_id)
+            student_due_date = due_dates_changed[user_id]["settings"]["hard_due_date"]["value"]
             if (student_due_date != assignment_due_date):
                 df.loc[len(df.index)] = [student_email, student_due_date]
+
         print(df)
 
 
