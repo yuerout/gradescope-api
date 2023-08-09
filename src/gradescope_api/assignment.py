@@ -114,7 +114,9 @@ class GradescopeAssignment:
         due_dates = data["overrides"]
         assignment_due_date = data["assignment"]["hard_due_date"]
         for student_email in students.keys():
+            print("student_email")
             user_id = students.get(student_email)
+            print(user_id)
             student_due_date = due_dates[user_id]
             print("aaaaaaaaaa")
             a = student_due_date["settings"]
