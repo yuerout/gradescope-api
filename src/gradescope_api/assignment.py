@@ -109,6 +109,7 @@ class GradescopeAssignment:
         data = json.loads(props)
         students = {row["email"]: row["id"]
                     for row in data.get("students", [])}
+        print(students)
         #user_id = students.get(email)
         #if not user_id:
         #    raise GradescopeAPIError("student email not found")
@@ -119,9 +120,9 @@ class GradescopeAssignment:
             dt = dt + timedelta(num_days)
             return dt.astimezone(pytz.utc)
 
-        assignment = data["assignment"]
-        new_due_date = transform_date(assignment["due_date"])
-        print(new_due_date)
+        #assignment = data["assignment"]
+        #new_due_date = transform_date(assignment["due_date"])
+        #print(new_due_date)
 
         '''if assignment["hard_due_date"]:
             new_hard_due_date = transform_date(assignment["hard_due_date"])
