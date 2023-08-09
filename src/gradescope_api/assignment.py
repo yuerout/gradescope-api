@@ -51,10 +51,10 @@ class GradescopeAssignment:
             raise GradescopeAPIError("student email not found")
 
         # A helper method to transform the date
-        def transform_date(datestr: str):
+        '''def transform_date(datestr: str):
             dt = pytz.timezone("US/Pacific").localize(parse(datestr))
             dt = dt + timedelta(num_days)
-            return dt.astimezone(pytz.utc)
+            return dt.astimezone(pytz.utc)'''
 
         assignment = data["assignment"]
         new_due_date = transform_date(assignment["due_date"])
